@@ -29,9 +29,9 @@ module vga_timing(clk, row, col, in_video, hsync, vsync);
 	
 	always @(posedge clk)
 	begin
-		if(CounterX==800) begin
+		if(CounterX == 799) begin
 			CounterX <= 0;
-			if(CounterY==525) // +15
+			if(CounterY == 524) // +15
 				CounterY <= 0;
 			else
 				CounterY <= CounterY + 1;
@@ -48,5 +48,5 @@ module vga_timing(clk, row, col, in_video, hsync, vsync);
 	assign hsync = (656 <= CounterX && CounterX <= 752);
 	assign vsync = (490 <= CounterY && CounterY <= 492); // +15 x 2
 	
-	assign in_video = CounterX <= 640 && CounterY <= 480;
+	assign in_video = CounterX < 640 && CounterY < 480;
 endmodule
